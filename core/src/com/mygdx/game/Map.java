@@ -9,5 +9,7 @@ package com.mygdx.game;
  * @author slatz8075
  */
 public class Map {
-    //
+    
+    //create a 2D array of screens 
+    Screen[][] map = new Screen[10][10]; 
 }
