@@ -4,6 +4,9 @@
  */
 package com.mygdx.game;
 
+import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.utils.viewport.Viewport;
 import java.io.FileReader;
 import java.net.URL;
 import java.util.Scanner;
@@ -12,8 +15,10 @@ import java.util.Scanner;
  *
  * @author slatz8075
  */
-public class MainGame {
+public class MainGame implements Screen{
 
+    
+    
     //create a variables for the dimentions of the map (dimentions in terms of # of screens)
     static int mapHeight;
     static int mapWidth;
@@ -21,7 +26,13 @@ public class MainGame {
     static int ScreenTileHeight;
     static int ScreenTileWidth;
     //create a new map to store the screens
-    Map map = new Map();
+    static Map map = new Map();
+    
+    // sprite batch
+    private SpriteBatch batch;
+    // camera and viewport
+    private OrthographicCamera camera;
+    private Viewport view;
 
     /**
      * @param args the command line arguments
@@ -60,16 +71,12 @@ public class MainGame {
                 for (int screenRow = 0; screenRow < ScreenTileHeight; screenRow++) {
                     //this is counting the number of columns in the map[][]for this row for this specific screen
                     for (int screenCol = 0; screenCol < ScreenTileWidth; screenCol++) {
-                        //take this int at this position
-                        int 
                         //take this number and put it into its respective tile designation inside of its respective screen designation inside of the map
-                        screen.setTile(screenRow, screenCol, in.next());
-                        //move to the next character in line
-                        in.next();
+                        screen.setTile(screenRow, screenCol, Integer.parseInt(in.next()));
                     }
                 }
                 //now put this screen into the map[][]
-                //map[mapRow][mapCol];//.setScreen(screenRow, screenCol, screen);
+                map.setScreen(mapRow, mapCol, screen);
                 //we have now passed a screen worth of tiles, so move past the blank space ()separating the screens
                 in.next();
             }

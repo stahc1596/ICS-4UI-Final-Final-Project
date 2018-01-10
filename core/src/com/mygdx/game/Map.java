@@ -20,7 +20,7 @@ public class Map {
     }
     
     //setter for the screen
-    public void setSceen(int row, int col, Screen Screen){
+    public void setScreen(int row, int col, Screen Screen){
         //set the screen at the desired part in the map array
         screens[row][col] = Screen;
     }
