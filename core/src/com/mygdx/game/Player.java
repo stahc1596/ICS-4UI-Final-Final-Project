@@ -26,6 +26,7 @@ public class Player {
     private int distanceTraveledY;
     private int worldRow;
     private int worldColumn;
+    private World world;
 /**
  * 
  * @param x the players x position on the screen
@@ -36,11 +37,11 @@ public class Player {
     public Player(float x, float y, int row, int col) {
         this.x = x;
         this.y = y;
-
+        this.world = New World();
         this.dx = 0;
         this.dy = 0;
-        setWorldRow(row);
-        setWorldCol(col);
+        this.worldRow =row;
+        this.worldColumn = col;
         this.distanceTraveledX = 0;
         this.distanceTraveledY = 0;
         
@@ -80,8 +81,11 @@ public class Player {
             this.dy = 0;
         }
         if(Gdx.input.isKeyPressed(Input.Keys.ENTER)){
-            if(place){
-                interact(place);
+            String test = this.world.getTileType();
+            if(test.equals("Puzzle")){
+                puzzleInteract(place);
+            }else if(test.equals("Door")){
+                doorInteract();
             }
         }
         this.x = this.x + this.dx;
@@ -127,9 +131,18 @@ public class Player {
             return "error no direction found";
         }
     }
-    public void interact(boolean puzzle){
-        if(puzzle && Gdx.input.isKeyPressed(Input.Keys.ENTER)){
+    public void puzzleInteract(Tile puzzle){
+        if(puzzle){
             //interact
+            world.changePuzzleTile();
         }
+        
+    }
+    public void doorInteract(Tile Door){
+        if(Door){
+            //interact
+            world.changeMap();
+        }
+        
     }
 }
