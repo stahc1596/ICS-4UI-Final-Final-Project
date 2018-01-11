@@ -11,6 +11,9 @@ package com.mygdx.game;
 public class Screen {
     //blank 2d screen array
     private int[][] tiles;
+    
+    //Variables help tell the other classes about the players position, which
+    //is done through the getters below
     private int row;
     private int col;
     
@@ -26,10 +29,12 @@ public class Screen {
         tiles[row][col] = tileType;
     }
     
+    //Getter for the row
     public int getRow(){
         return row;
     }
     
+    //Getter for the coloumn
     public int getCol(){
         return col;
     }
