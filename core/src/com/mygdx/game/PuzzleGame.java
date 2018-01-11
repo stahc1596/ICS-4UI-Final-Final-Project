@@ -12,12 +12,12 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
  * @author slatz8075
  */
 public class PuzzleGame extends Game{
+    
         //create the sprite batch for the game
 	private SpriteBatch batch;
 
-	
 	@Override
-	public void create () {
+	public void create() {
             // initialize the sprite batch
             batch = new SpriteBatch();
             // create the main game screen we want to use
@@ -27,13 +27,13 @@ public class PuzzleGame extends Game{
 	}
 
 	@Override
-	public void render () {
+	public void render() {
             // this will automatically call render on the screen that is set
             super.render();
 	}
 	
 	@Override
-	public void dispose () {
+	public void dispose() {
             // get rid of heavy variables
             batch.dispose();
 	}

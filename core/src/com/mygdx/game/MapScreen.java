@@ -8,7 +8,7 @@ package com.mygdx.game;
  *
  * @author slatz8075
  */
-public class Screen {
+public class MapScreen {
     //blank 2d screen array
     private int[][] tiles;
     

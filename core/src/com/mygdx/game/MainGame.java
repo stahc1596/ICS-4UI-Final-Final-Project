@@ -4,8 +4,12 @@
  */
 package com.mygdx.game;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import java.io.FileReader;
 import java.net.URL;
@@ -17,17 +21,19 @@ import java.util.Scanner;
  */
 public class MainGame implements Screen{
 
-    
-    
+    //create a puzzle game to 
+    private PuzzleGame gameManager;
+    // our game needs a hero
+    private Player player;
+    //create a new map to store the screens
+    static Map map = new Map();
     //create a variables for the dimentions of the map (dimentions in terms of # of screens)
     static int mapHeight;
     static int mapWidth;
     //create variables for the dimentions of the screen
     static int ScreenTileHeight;
     static int ScreenTileWidth;
-    //create a new map to store the screens
-    static Map map = new Map();
-    
+
     // sprite batch
     private SpriteBatch batch;
     // camera and viewport
@@ -37,16 +43,17 @@ public class MainGame implements Screen{
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
+    //this is the constructor to create the map and the sceens inside of it when started 
+    public MainGame(PuzzleGame puzzleGame) {
         //INITILIZATION
         //create a blank file
         FileReader file = null;
         //try to find the info file
         try {
             //create a url for the location of the info file
-            URL url = MainGame.class.getResource("src//hhssAdv//info.txt");
+            URL url = MainGame.class.getResource("src//com.mygdxGame.game//info.txt");
             // creating the file reader
-            file = new FileReader("src//hhssAdv//info.txt");
+            file = new FileReader("src//com.mygdxGame.game//info.txt");
         } catch (Exception e) {
             //handle any errors
             e.printStackTrace();
@@ -66,7 +73,7 @@ public class MainGame implements Screen{
             //this is counting the number of column spots for the screens in the map[][]
             for (int mapCol = 0; mapCol < mapHeight; mapCol++) {
                 //we are now at a new screen, so initilize it
-                Screen screen = new Screen();
+                MapScreen screen = new MapScreen();
                 //this is counting the number of rows in the map[][]for this row for this scecific screen
                 for (int screenRow = 0; screenRow < ScreenTileHeight; screenRow++) {
                     //this is counting the number of columns in the map[][]for this row for this specific screen
@@ -81,5 +88,87 @@ public class MainGame implements Screen{
                 in.next();
             }
         }
+    }
+    
+    @Override
+    public void show() {
+        // this would be what happens when the game wakes up from being hidden
+        // i.e. when you minimized the game and reopenned it
+    }
+
+    // the main game loop for this screen
+    @Override
+    public void render(float deltaTime) {
+        //WAITING ON RYAN
+        /*
+        // update the player
+        player.update(deltaTime);
+        
+        //THIS NEEDS MODIFICATION
+        // check for collisions and fix them
+        for(Rectangle block: world.getBlocks()){
+            player.fixCollision(block);
+        }
+        */
+        
+       
+        // clears the screen in a black colour
+        Gdx.gl.glClearColor(0, 0, 0, 1);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+	
+        // ask the world to render
+        // notice this is not in the SpriteBatch
+        // This is because it uses its own ShapeRenderer
+        map.render(camera);
+        
+        //WAITING ON RYAN
+        /*
+        if(player.getX() > 200){
+            camera.position.x = player.getX();
+        }
+        */
+        camera.update();
+        batch.setProjectionMatrix(camera.combined);
+        // ask the SpriteBatch to start taking notes of what to draw
+        batch.begin();
+        
+        //WAITING OR RYAN
+        /*
+	// ask the player to draw themself
+        player.render(batch);
+        */
+        
+        // tell the SpriteBatch we are good to draw everything now
+	batch.end();
+    }
+
+    // used when the window is resized.... we haven't use it here
+    @Override
+    public void resize(int width, int height) {
+        
+    }
+
+    // if the game could pause, what do you need to happen?
+    @Override
+    public void pause() {
+        
+    }
+
+    // when the game is unpaused, what do you need to happen?
+    @Override
+    public void resume() {
+        
+    }
+
+    // when the game needs to be minimized, what needs to happen?
+    @Override
+    public void hide() {
+        
+    }
+
+    // get rid of heavy objects...
+    @Override
+    public void dispose() {
+        
     }
 }
