@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import java.io.FileReader;
 import java.net.URL;
@@ -21,7 +22,7 @@ import java.util.Scanner;
  */
 public class MainGame implements Screen{
 
-    //create a puzzle game to -------------------------------------------------
+    //create a puzzle game to display/ switch screens
     private PuzzleGame gameManager;
     // our game needs a hero
     private Player player;
@@ -41,8 +42,8 @@ public class MainGame implements Screen{
     private Viewport view;
     
     //variables for storing the screen that the player is at
-    int curentScreenX;
-    int curentScreenY;
+    int currentScreenX;
+    int currentScreenY;
     //variables for storing the startying position that the player is at
     int startX;
     int startY;
@@ -53,6 +54,8 @@ public class MainGame implements Screen{
     //this is the constructor to create the map and the sceens inside of it when started 
     public MainGame(PuzzleGame puzzleGame) {
         //INITILIZATION
+        //Save the puzzle game so that we can talk to it
+        this.gameManager = puzzleGame;
         //create a blank file
         FileReader file = null;
         //try to find the info file
@@ -76,8 +79,8 @@ public class MainGame implements Screen{
         ScreenTileHeight = Integer.parseInt(in.next());
         ScreenTileWidth = Integer.parseInt(in.next());
         //take in the starting position (screen wise) of the player
-        curentScreenX = Integer.parseInt(in.next());
-        curentScreenY = Integer.parseInt(in.next());
+        currentScreenX = Integer.parseInt(in.next());
+        currentScreenY = Integer.parseInt(in.next());
         //take in the position of the player (XY position wise on the screen)
         startX = Integer.parseInt(in.next());
         startY = Integer.parseInt(in.next());
@@ -103,6 +106,18 @@ public class MainGame implements Screen{
                 in.next();
             }
         }
+        // initialize the spritebatch
+        this.batch = puzzleGame.getBatch();
+        //create the camera proportional to the mapScreen
+        this.camera = new OrthographicCamera(ScreenTileWidth*1000, ScreenTileHeight*1000);
+        //do the same for the viewport using the camera
+        this.view = new FitViewport(ScreenTileWidth*1000, ScreenTileHeight*1000, camera);
+        //finally apply the viewport
+        view.apply();
+        // move the camera to the center
+        this.camera.position.set(ScreenTileWidth*1000/2, ScreenTileHeight*1000/2, 0);
+        // make sure to apply the changes
+        this.camera.update();
     }
     
     @Override
@@ -134,7 +149,7 @@ public class MainGame implements Screen{
         // ask the world to render
         // notice this is not in the SpriteBatch
         // This is because it uses its own ShapeRenderer
-        map.render(camera, curentScreen);
+        map.render(camera, currentScreenX, currentScreenY);
         
         //WAITING ON RYAN
         /*
@@ -184,6 +199,16 @@ public class MainGame implements Screen{
     // get rid of heavy objects...
     @Override
     public void dispose() {
+        
+    }
+    
+    //getter for the screen tile height (helpful for the display)
+    public void getScreenTileHeight(){
+        //return the size of the 
+    }
+    
+    //getter for the screen tile height (helpful for the display)
+    public void getScreenTileWidth(){
         
     }
 }

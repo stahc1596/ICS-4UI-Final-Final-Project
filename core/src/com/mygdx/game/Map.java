@@ -14,6 +14,7 @@ public class Map {
 
     //create a 2D array of screens 
     private MapScreen[][] screens;
+    //create variable to store the width and height of the screen when dislayed
 
     //initilizer for the map
     public void map(int width, int height) {
@@ -34,7 +35,7 @@ public class Map {
     }
 
     //for the render method pass in the camera, and the screen we are currently looking at
-    public void render(OrthographicCamera camera, MapScreen curentScreen) {
+    public void render(OrthographicCamera camera, int currentScreenX, int currentScreenY) {
         //get the height and width of the screen
     }
     
