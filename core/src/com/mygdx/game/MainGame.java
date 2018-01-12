@@ -99,7 +99,7 @@ public class MainGame implements Screen{
     // the main game loop for this screen
     @Override
     public void render(float deltaTime) {
-        //WAITING ON RYAN
+        player.update(deltaTime);
         /*
         // update the player
         player.update(deltaTime);
@@ -137,7 +137,8 @@ public class MainGame implements Screen{
 	// ask the player to draw themself
         player.render(batch);
         */
-        
+        //Ask the player to draw themself
+        player.render(batch);
         // tell the SpriteBatch we are good to draw everything now
 	batch.end();
     }
