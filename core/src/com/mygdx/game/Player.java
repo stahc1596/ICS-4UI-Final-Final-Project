@@ -85,7 +85,7 @@ public class Player {
             if(test.equals("Puzzle")){
                 puzzleInteract(place);
             }else if(test.equals("Door")){
-                doorInteract();
+                doorInteract(place);
             }
         }
         this.x = this.x + this.dx;
@@ -134,14 +134,14 @@ public class Player {
     public void puzzleInteract(Tile puzzle){
         if(puzzle){
             //interact
-            world.changePuzzleTile();
+            world.changePuzzleTile(this.x,this.y);
         }
         
     }
     public void doorInteract(Tile Door){
         if(Door){
             //interact
-            world.changeMap();
+            world.changeMap(this.worldRow,this.worldColumn,this.x,this.y);
         }
         
     }
