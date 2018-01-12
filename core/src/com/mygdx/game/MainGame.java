@@ -21,7 +21,7 @@ import java.util.Scanner;
  */
 public class MainGame implements Screen{
 
-    //create a puzzle game to 
+    //create a puzzle game to -------------------------------------------------
     private PuzzleGame gameManager;
     // our game needs a hero
     private Player player;
@@ -39,6 +39,13 @@ public class MainGame implements Screen{
     // camera and viewport
     private OrthographicCamera camera;
     private Viewport view;
+    
+    //variables for storing the screen that the player is at
+    int curentScreenX;
+    int curentScreenY;
+    //variables for storing the startying position that the player is at
+    int startX;
+    int startY;
 
     /**
      * @param args the command line arguments
@@ -68,6 +75,14 @@ public class MainGame implements Screen{
         //take in the variables for width and height of screens
         ScreenTileHeight = Integer.parseInt(in.next());
         ScreenTileWidth = Integer.parseInt(in.next());
+        //take in the starting position (screen wise) of the player
+        curentScreenX = Integer.parseInt(in.next());
+        curentScreenY = Integer.parseInt(in.next());
+        //take in the position of the player (XY position wise on the screen)
+        startX = Integer.parseInt(in.next());
+        startY = Integer.parseInt(in.next());
+        //create a player at this current position on the screen
+        player = new Player(startX, startY);
         //this is counting the columns of screens in the map[][] 
         for (int mapRow = 0; mapRow < mapWidth; mapRow++) {
             //this is counting the number of column spots for the screens in the map[][]
@@ -119,7 +134,7 @@ public class MainGame implements Screen{
         // ask the world to render
         // notice this is not in the SpriteBatch
         // This is because it uses its own ShapeRenderer
-        map.render(camera);
+        map.render(camera, curentScreen);
         
         //WAITING ON RYAN
         /*

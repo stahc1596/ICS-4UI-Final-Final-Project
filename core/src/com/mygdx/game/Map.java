@@ -33,9 +33,9 @@ public class Map {
         return screens[row][col];
     }
 
-    //
-    public void render(OrthographicCamera camera) {
-        
+    //for the render method pass in the camera, and the screen we are currently looking at
+    public void render(OrthographicCamera camera, MapScreen curentScreen) {
+        //get the height and width of the screen
     }
     
     
