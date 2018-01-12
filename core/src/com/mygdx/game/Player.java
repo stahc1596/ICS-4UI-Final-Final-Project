@@ -6,8 +6,8 @@ package com.mygdx.game;
 
 /**
  *
- * @author stahc1596
+ * @author slatz8075
  */
 public class Player {
-    
+    //THIS IS FOR RYAN
 }
