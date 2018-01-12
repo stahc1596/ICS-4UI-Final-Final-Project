@@ -26,7 +26,7 @@ public class Player {
     private int distanceTraveledY;
     private int worldRow;
     private int worldColumn;
-    private World world;
+    private Screen world;
 /**
  * 
  * @param x the players x position on the screen
@@ -37,7 +37,7 @@ public class Player {
     public Player(float x, float y, int row, int col) {
         this.x = x;
         this.y = y;
-        this.world = New World();
+        this.world = new Screen();
         this.dx = 0;
         this.dy = 0;
         this.worldRow =row;
@@ -97,6 +97,9 @@ public class Player {
     public void setWorldCol(int col){   
         this.worldColumn = col;
     } 
+    public void setScreen(Screen places){
+        this.world = places;
+    }
     public float getPlayerX(){
         return this.x;
     }
@@ -132,7 +135,7 @@ public class Player {
         }
     }
     public void puzzleInteract(Tile puzzle){
-        if(puzzle){
+        if(puzzle == Tile ){
             //interact
             world.changePuzzleTile(this.x,this.y);
         }
