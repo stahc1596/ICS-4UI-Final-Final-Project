@@ -23,7 +23,7 @@ public class Map {
     public void map(int width, int height) {
         //create the map[][] to the desired dimensions
         screens = new MapScreen[width][height];
-        //initilize the shape renderer
+        //initilize the shape renderer for the render method
         shapeRenderer = new ShapeRenderer();
     }
 
