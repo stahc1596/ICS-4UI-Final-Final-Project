@@ -19,37 +19,6 @@ import com.badlogic.gdx.utils.Array;
  * @author slatz8075
  */
 public class Player {
-    //THIS IS FOR RYAN
-    // player location variables
-    private float x;
-    private float y;
-    // player movement variables
-    private float dx;
-    private float dy;
-    // facing left or not
-    private boolean facingLeft;
-
-    // the amount of time an animation has been running
-    private float elapsed;
-
-    // animation variables for moving
-    private Animation<TextureRegion> run;
-    private Animation<TextureRegion> runL;
-    
-    // pictures when standing still
-    private TextureRegion stand;
-    private TextureRegion standL;
-
-    // texture atlas that will help load in the images from the big image
-    // this was created from running the texture packer (in Desktop Launcher)
-    private TextureAtlas atlas;
-
-    // the collision rectangle to help us fix collisions
-    private Rectangle bounds;
-
-    // constructor - we need to know where the player starts
-    public class Player {
-
     private float x;
     private float y;
     private float dx;
@@ -63,7 +32,19 @@ public class Player {
     private int worldRow;
     private int worldColumn;
     private MapScreen world;
+    
+    // pictures when standing still
+    private TextureRegion stand;
+    private TextureRegion standL;
 
+    // texture atlas that will help load in the images from the big image
+    // this was created from running the texture packer (in Desktop Launcher)
+    private TextureAtlas atlas;
+
+    // the collision rectangle to help us fix collisions
+    private Rectangle bounds;
+
+   
     /**
      *
      * @param x the players x position on the screen
@@ -118,11 +99,11 @@ public class Player {
             this.dy = 0;
         }
         if (Gdx.input.isKeyPressed(Input.Keys.ENTER)) {
-            String test = this.world.getTileType();
+            String test = this.world.getTileType(this.x,this.y);
             if (test.equals("Puzzle")) {
-                puzzleInteract(this.world.getTile);
+                puzzleInteract(this.world.getTile(this.x,this.y));
             } else if (test.equals("Door")) {
-                doorInteract(this.world.getTile);
+                doorInteract(this.world.getTile(this.x,this.y));
             }
         }
         this.x = this.x + this.dx;
@@ -137,7 +118,7 @@ public class Player {
         this.worldColumn = col;
     }
 
-    public void setScreen(Screen places) {
+    public void setScreen(MapScreen places) {
         this.world = places;
     }
 
@@ -180,37 +161,14 @@ public class Player {
     }
 
     public void puzzleInteract(String puzzle) {
-
         //interact
         world.changePuzzleTile(this.x, this.y);
     }
 
-    public void doorInteract(Tile Door) {
+    public void doorInteract(String Door) {
         //interact
-        world.changeMap(this.worldRow, this.worldColumn, this.x, this.y);
+        world.PassThroughDoor(this.worldRow, this.worldColumn, this.x, this.y);
     }
 }
 
-    public void render(SpriteBatch batch) {
-        // standing
-        if (this.dx == 0) {
-            // pic the correct picture for left or right
-            if (facingLeft) {
-                batch.draw(standL, x, y);
-            } else {
-                batch.draw(stand, x, y);
-            }
-        // right animation
-        } else if (this.dx > 0) {
-            batch.draw(run.getKeyFrame(elapsed, true), x, y);
-        // left animation
-        } else if (this.dx < 0) {
-            batch.draw(runL.getKeyFrame(elapsed, true), x, y);
-        }
-    }
     
-    // get rid of heavy objects
-    public void dispose(){
-        atlas.dispose();
-    }
-}

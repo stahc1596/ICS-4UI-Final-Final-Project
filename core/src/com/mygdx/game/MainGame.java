@@ -85,7 +85,7 @@ public class MainGame implements Screen{
         startX = Integer.parseInt(in.next());
         startY = Integer.parseInt(in.next());
         //create a player at this current position on the screen
-        player = new Player(startX, startY);
+        player = new Player(startX, startY,1,1);
         //this is counting the columns of screens in the map[][] 
         for (int mapRow = 0; mapRow < mapWidth; mapRow++) {
             //this is counting the number of column spots for the screens in the map[][]
