@@ -204,7 +204,8 @@ public class MainGame implements Screen{
     
     //getter for the screen tile height (helpful for the display)
     public void getScreenTileHeight(){
-        //return the size of the 
+        //return the number of tiles tall it is
+        
     }
     
     //getter for the screen tile height (helpful for the display)
