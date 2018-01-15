@@ -29,8 +29,7 @@ public class MapScreen {
         //access the integer(int row, int col){
         //access the inte at this position
         //return tiles[row][col];
-        // retun as a string for the player to read it cant read multiple array spots witghout first copying the array 
-        // then geting the positions then in 2 seperate places and then converting it into something useable
+        // please convert integers to stings when asking the player aanything
         String TileType= "";
         return TileType;
     }
@@ -47,7 +46,7 @@ public class MapScreen {
 
     public String getTileType(float x, float y) {
         // find the type of tile 
-        //return it as a String to be able for the player to read it 
+        // please convert integers to stings when asking the player aanything
         return "";
     }
         
