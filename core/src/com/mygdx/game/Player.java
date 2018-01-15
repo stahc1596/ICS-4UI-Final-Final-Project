@@ -54,13 +54,13 @@ public class Player {
         if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
             this.dx = 3;
             this.directionX = 2;
-            if (!Gdx.input.isKeyPressed(Input.Keys.RIGHT) || !Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
+            if (!Gdx.input.isKeyPressed(Input.Keys.UP) || !Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
                 this.directionY = 0;
             }
         } else if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
             this.dx = -3;
             this.directionX = 1;
-            if (!Gdx.input.isKeyPressed(Input.Keys.RIGHT) || !Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
+            if (!Gdx.input.isKeyPressed(Input.Keys.UP) || !Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
                 this.directionY = 0;
             }
         } else {
@@ -70,13 +70,13 @@ public class Player {
             this.dy = -3;
             this.directionY = 2;
             if (!Gdx.input.isKeyPressed(Input.Keys.RIGHT) || !Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
-                this.directionY = 0;
+                this.directionX = 0;
             }
         } else if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
             this.dy = 3;
             this.directionY = 1;
             if (!Gdx.input.isKeyPressed(Input.Keys.RIGHT) || !Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
-                this.directionY = 0;
+                this.directionX = 0;
             }
         } else {
             this.dy = 0;
