@@ -6,6 +6,7 @@ package com.mygdx.game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -52,9 +53,19 @@ public class Player {
 
     // the collision rectangle to help us fix collisions
     private Rectangle bounds;
+    
+    private Texture player;
+    private int directionX;
+    private int directionY;
+    private int distanceTraveledX;
+    private int distanceTraveledY;
+    private int worldRow;
+    private int worldColumn;
+    private MapScreen world;
+
 
     // constructor - we need to know where the player starts
-    public Player(float x, float y) {
+    public Player(float x, float y, int row, int col) {
         // sets the income position
         this.x = x;
         this.y = y;
@@ -95,6 +106,10 @@ public class Player {
         // my collision rectangle is at the x,y value passed in
         // it has the width and height of the standing picture
         this.bounds = new Rectangle(x, y, standR.getRegionWidth(), standR.getRegionHeight());
+        this.worldRow = row;
+        this.worldColumn = col;
+        this.distanceTraveledX = 0;
+        this.distanceTraveledY = 0;
     }
     
     public float getX(){
@@ -106,34 +121,50 @@ public class Player {
     }
     
     
-    public void update(float deltaTime) {
-        // if I'm pressing right
+    public void update(boolean place) {
+        // movement
         if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
-            // set the x displacement to start moving right
             this.dx = 3;
-            // increase the animation timer
-            this.elapsed = this.elapsed + deltaTime;
-            // set boolean to face right
-            this.faceLeft = false;
+            this.directionX = 2;
+            if (!Gdx.input.isKeyPressed(Input.Keys.UP) || !Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
+                this.directionY = 0;
+            }
         } else if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
-            // set the x displacement to start moving left
             this.dx = -3;
-            // increase the animation timer
-            this.elapsed = this.elapsed + deltaTime;
-            // im facing left
-            this.faceLeft = true;
+            this.directionX = 1;
+            if (!Gdx.input.isKeyPressed(Input.Keys.UP) || !Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
+                this.directionY = 0;
+            }
         } else {
-            // stop the x displacement
             this.dx = 0;
-            // no more animation so reset the timer
-            this.elapsed = 0;
         }
-
+        if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
+            this.dy = -3;
+            this.directionY = 2;
+            if (!Gdx.input.isKeyPressed(Input.Keys.RIGHT) || !Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
+                this.directionX = 0;
+            }
+        } else if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
+            this.dy = 3;
+            this.directionY = 1;
+            if (!Gdx.input.isKeyPressed(Input.Keys.RIGHT) || !Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
+                this.directionX = 0;
+            }
+        } else {
+            this.dy = 0;
+        }/**
+         *Replace getTileTyp with something else
+        if (Gdx.input.isKeyPressed(Input.Keys.ENTER)) {
+            String test = this.world.getTileType();
+            if (test.equals("Puzzle")) {
+                puzzleInteract(this.world.getTile);
+            } else if (test.equals("Door")) {
+                doorInteract(this.world.getTile);
+            }
+        }
+        */
         this.x = this.x + this.dx;
-
-        // update collision rectangle
-        this.bounds.setX(this.x);
-        this.bounds.setY(this.y);
+        this.y = this.y + this.dy;
     }
 
     public void fixCollision(Rectangle block) {
