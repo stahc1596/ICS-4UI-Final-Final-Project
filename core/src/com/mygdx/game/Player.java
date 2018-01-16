@@ -153,7 +153,7 @@ public class Player {
         } else {
             this.dy = 0;
         }/**
-         *Replace getTileTyp with something else
+         *Replace getTileType with something else
         if (Gdx.input.isKeyPressed(Input.Keys.ENTER)) {
             String test = this.world.getTileType();
             if (test.equals("Puzzle")) {
