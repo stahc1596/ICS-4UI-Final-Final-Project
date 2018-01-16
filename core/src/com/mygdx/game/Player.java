@@ -121,7 +121,7 @@ public class Player {
     }
     
     
-    public void update(boolean place) {
+    public void update(float deltaTime) {
         // movement
         if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
             this.dx = 3;
@@ -239,4 +239,69 @@ public class Player {
     public void dispose(){
         atlas.dispose();
     }
+    public void setWorldRow(int row) {
+        this.worldRow = row;
+    }
+
+    public void setWorldCol(int col) {
+        this.worldColumn = col;
+    }
+
+    public void setScreen(MapScreen places) {
+        this.world = places;
+    }
+
+    public float getPlayerX() {
+        return this.x;
+    }
+
+    public float getPlayerY() {
+        return this.y;
+    }
+
+    public int getWorldCol() {
+        return this.worldColumn;
+    }
+
+    public int getWorldRow() {
+        return this.worldRow;
+    }
+
+    public String getDiretion() {
+        if (this.directionX == 2 && this.directionY == 0) {
+            return "right";
+        } else if (this.directionX == 2 && this.directionY == 1) {
+            return "down-right";
+        } else if (this.directionX == 2 && this.directionY == 2) {
+            return "up-right";
+        } else if (this.directionX == 1 && this.directionY == 0) {
+            return "left";
+        } else if (this.directionX == 1 && this.directionY == 1) {
+            return "down-left";
+        } else if (this.directionX == 1 && this.directionY == 2) {
+            return "up-left";
+        } else if (this.directionX == 0 && this.directionY == 2) {
+            return "up";
+        } else if (this.directionX == 0 && this.directionY == 1) {
+            return "down";
+        } else {
+            return "error no direction found";
+        }
+    }
+
+    /**
+     * This isn't coded properly, I believe it's coded to believe a tile is the
+     * square the player is standing on rather than the room he's in
+    public void puzzleInteract(String puzzle) {
+
+        //interact
+        world.changePuzzleTile(this.x, this.y);
+    }
+
+    public void doorInteract(Tile Door) {
+        //interact
+        world.changeMap(this.worldRow, this.worldColumn, this.x, this.y);
+    }
+    */
 }
+
