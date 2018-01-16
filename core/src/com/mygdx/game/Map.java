@@ -20,7 +20,7 @@ public class Map {
     private ShapeRenderer shapeRenderer;
 
     //initilizer for the map
-    public void map(int width, int height) {
+    public Map(int width, int height) {
         //create the map[][] to the desired dimensions
         screens = new MapScreen[width][height];
         //initilize the shape renderer for the render method
@@ -41,19 +41,22 @@ public class Map {
 
     //for the render method pass in the camera, and the screen we are currently looking at
     public void render(OrthographicCamera camera, int currentScreenX, int currentScreenY) {
+        System.out.println("so far 1");
         //use the shape renderer at our position
         shapeRenderer.setProjectionMatrix(camera.combined);
+        
         //begin our shape rendering, saying that our shape type is filled
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
         //get our current screen
         MapScreen CurrentScreen = screens[currentScreenX][currentScreenY];
+        System.out.println("so far 2");
         //move through this array generating solid blocks at 1's and now blocks at 0's
         //simonanuiously generate a leaf texture at the 1's and sand at the zeroes
         //use for loops to navigate through this screen's tiles and display the above accordingly
         //this for loop moves through the columns
-        for (int ScreenColumn = 0; ScreenColumn < screens.length; ScreenColumn++) {
+        for (int ScreenColumn = 0; ScreenColumn < screens[0].length; ScreenColumn++) {
             //this for loop moves through the rows
-            for (int ScreenRow = 0; ScreenRow < screens[0].length; ScreenRow++) {
+            for (int ScreenRow = 0; ScreenRow < screens.length; ScreenRow++) {
                 //check to see if this is a block
                 if (CurrentScreen.getTile(ScreenColumn, ScreenRow) == 1) {
                     //now generate a block 
@@ -65,9 +68,10 @@ public class Map {
                 }else if(CurrentScreen.getTile(ScreenColumn, ScreenRow) == 0){
                     //now we know it is not a block
                     //all we need to do is generate the texture
-                    
                 }
             }
         }
+        
+        shapeRenderer.end();
     }
 }

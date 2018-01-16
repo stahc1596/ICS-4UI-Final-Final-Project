@@ -13,9 +13,9 @@ public class MapScreen {
     private int[][] tiles;
     
     //initilizer for the screen
-    public void Screen(int width, int height){
+    public MapScreen(int width, int height){
         //create the empty array with the correct size
-        tiles = new int[width][height];
+        tiles = new int[height][width];
     }
     
     //setter for the tile
