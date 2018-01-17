@@ -25,7 +25,7 @@ public class MainGame implements Screen{
     //create a puzzle game to display/ switch screens
     private PuzzleGame gameManager;
     // our game needs a hero
-    //private Player player;
+    private Player player;
     //create a new map to store the screens
     private Map map;
     //create a variables for the dimentions of the map (dimentions in terms of # of screens)
