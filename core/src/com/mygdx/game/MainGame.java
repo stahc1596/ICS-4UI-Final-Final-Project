@@ -180,7 +180,7 @@ public class MainGame implements Screen{
     // used when the window is resized.... we haven't use it here
     @Override
     public void resize(int width, int height) {
-        
+        this.view.update(width, height);
     }
 
     // if the game could pause, what do you need to happen?

@@ -54,14 +54,18 @@ public class Map {
         //simonanuiously generate a leaf texture at the 1's and sand at the zeroes
         //use for loops to navigate through this screen's tiles and display the above accordingly
         //this for loop moves through the columns
-        for (int ScreenColumn = 0; ScreenColumn < screens[0].length; ScreenColumn++) {
+        for (int ScreenColumn = 0; ScreenColumn < CurrentScreen.getHeight(); ScreenColumn++) {
             //this for loop moves through the rows
-            for (int ScreenRow = 0; ScreenRow < screens.length; ScreenRow++) {
+            System.out.println("so far 3");
+            for (int ScreenRow = 0; ScreenRow < CurrentScreen.getWidth(); ScreenRow++) {
                 //check to see if this is a block
+                System.out.println("so far 4");
+                System.out.println("column"+ScreenColumn + "row"+ScreenRow);
                 if (CurrentScreen.getTile(ScreenColumn, ScreenRow) == 1) {
                     //now generate a block 
+                    System.out.println("so far 5");
                     //Ex: ScreenCol * 1000 scales up the array by 1000
-                    //since 1000 to 1 is the ratio of pixcel to block, blocks shoudl be 1000, 1000
+                    //since 1000 to 1 is the ratio of pixcel to block, blocks should be 1000, 1000
                     shapeRenderer.rect(ScreenColumn * 1000, ScreenRow * 1000, 1000, 1000);
                     //now generate the block texture
                     
@@ -71,7 +75,6 @@ public class Map {
                 }
             }
         }
-        
         shapeRenderer.end();
     }
 }
