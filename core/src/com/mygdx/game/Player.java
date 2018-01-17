@@ -139,8 +139,7 @@ public class Player {
             }
         } else {
             this.dy = 0;
-        }/**
-         *Replace getTileTyp with something else
+        }
         if (Gdx.input.isKeyPressed(Input.Keys.ENTER)) {
             String test = this.world.getTile(this.x,this.y);
             if (test.equals("Puzzle")) {
@@ -149,7 +148,6 @@ public class Player {
                 doorInteract();
             }
         }
-        */
         this.x = this.x + this.dx;
         this.y = this.y + this.dy;
     }
@@ -304,6 +302,6 @@ public class Player {
         //interact
         world.PassThroughDoor(this.worldRow, this.worldColumn, this.x, this.y);
     }
-    */
+   
 }
 
