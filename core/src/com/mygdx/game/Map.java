@@ -22,13 +22,15 @@ public class Map {
     //initilizer for the map
     public Map(int width, int height) {
         //create the map[][] to the desired dimensions
-        screens = new MapScreen[width][height];
+        screens = new MapScreen[height][width];
+        System.out.println("w: " + width + "  h: " + height);
         //initilize the shape renderer for the render method
         shapeRenderer = new ShapeRenderer();
     }
 
     //setter for the screen
     public void setScreen(int row, int col, MapScreen Screen) {
+        System.out.println("setting a screen: Row " + row + " col: " + col);
         //set the screen at the desired part in the map array
         screens[row][col] = Screen;
     }
@@ -41,29 +43,22 @@ public class Map {
 
     //for the render method pass in the camera, and the screen we are currently looking at
     public void render(OrthographicCamera camera, int currentScreenX, int currentScreenY) {
-        System.out.println("so far 1");
         //use the shape renderer at our position
-        shapeRenderer.setProjectionMatrix(camera.combined);
-        
+        shapeRenderer.setProjectionMatrix(camera.combined);      
         //begin our shape rendering, saying that our shape type is filled
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
         //get our current screen
         MapScreen CurrentScreen = screens[currentScreenX][currentScreenY];
-        System.out.println("so far 2");
         //move through this array generating solid blocks at 1's and now blocks at 0's
         //simonanuiously generate a leaf texture at the 1's and sand at the zeroes
         //use for loops to navigate through this screen's tiles and display the above accordingly
         //this for loop moves through the columns
-        for (int ScreenColumn = 0; ScreenColumn < CurrentScreen.getHeight(); ScreenColumn++) {
+        for (int ScreenRow = 0; ScreenRow < CurrentScreen.getHeight(); ScreenRow++) {
             //this for loop moves through the rows
-            System.out.println("so far 3");
-            for (int ScreenRow = 0; ScreenRow < CurrentScreen.getWidth(); ScreenRow++) {
+            for (int ScreenColumn = 0; ScreenColumn < CurrentScreen.getWidth(); ScreenColumn++) {
                 //check to see if this is a block
-                System.out.println("so far 4");
-                System.out.println("column"+ScreenColumn + "row"+ScreenRow);
                 if (CurrentScreen.getTile(ScreenColumn, ScreenRow) == 1) {
                     //now generate a block 
-                    System.out.println("so far 5");
                     //Ex: ScreenCol * 1000 scales up the array by 1000
                     //since 1000 to 1 is the ratio of pixcel to block, blocks should be 1000, 1000
                     shapeRenderer.rect(ScreenColumn * 1000, ScreenRow * 1000, 1000, 1000);
