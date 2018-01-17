@@ -99,11 +99,11 @@ public class Player {
             this.dy = 0;
         }
         if (Gdx.input.isKeyPressed(Input.Keys.ENTER)) {
-            String test = this.world.getTileType(this.x,this.y);
+            String test = this.world.getTile(this.x,this.y);
             if (test.equals("Puzzle")) {
-                puzzleInteract(this.world.getTile(this.x,this.y));
+                puzzleInteract();
             } else if (test.equals("Door")) {
-                doorInteract(this.world.getTile(this.x,this.y));
+                doorInteract();
             }
         }
         this.x = this.x + this.dx;
@@ -121,23 +121,38 @@ public class Player {
     public void setScreen(MapScreen places) {
         this.world = places;
     }
-
+/**
+ * getting the players x position
+ * @return the players x position
+ */
     public float getPlayerX() {
         return this.x;
     }
-
+/**
+ * getting the players y position
+ * @return the players y position
+ */
     public float getPlayerY() {
         return this.y;
     }
-
+/**
+ * 
+ * @return 
+ */
     public int getWorldCol() {
         return this.worldColumn;
     }
-
+/**
+ * 
+ * @return 
+ */
     public int getWorldRow() {
         return this.worldRow;
     }
-
+/**
+ * 
+ * @return the direction the player is facing 
+ */
     public String getDiretion() {
         if (this.directionX == 2 && this.directionY == 0) {
             return "right";
@@ -159,13 +174,17 @@ public class Player {
             return "error no direction found";
         }
     }
-
-    public void puzzleInteract(String puzzle) {
+/**
+ * tells the wold the player wants to interact with the world 
+ */
+    public void puzzleInteract() {
         //interact
         world.changePuzzleTile(this.x, this.y);
     }
-
-    public void doorInteract(String Door) {
+/**
+ * has the player tell the world he wants to go through a door
+ */
+    public void doorInteract() {
         //interact
         world.PassThroughDoor(this.worldRow, this.worldColumn, this.x, this.y);
     }

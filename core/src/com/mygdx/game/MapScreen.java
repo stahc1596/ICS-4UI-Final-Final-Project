@@ -11,11 +11,19 @@ package com.mygdx.game;
 public class MapScreen {
     //blank 2d screen array
     private int[][] tiles;
-    
+    private String door;
+    private String puzzle;
+    private String passible;
+    private String impassible;
     //initilizer for the screen
     public void Screen(int width, int height){
         //create the empty array with the correct size
         tiles = new int[width][height];
+        this.door = "door";
+        this.puzzle= "puzzle";
+        this.passible = "passible";
+        this.impassible = "impassible";
+        
     }
     
     //setter for the tile
@@ -28,10 +36,21 @@ public class MapScreen {
     public String getTile(float row, float col){
         //access the integer(int row, int col){
         //access the inte at this position
-        //return tiles[row][col];
-        // please convert integers to stings when asking the player aanything
+        int tile = tiles[row][col];
         String TileType= "";
+        if(tile ==0){
+        TileType= this.passible;
         return TileType;
+        }else if(tile == 1){
+            TileType= this.impassible;
+        return TileType;
+        }else if(tile == 2){
+            TileType= this.door;
+        return TileType;
+        }else{
+            TileType= this.puzzle;
+        return TileType;
+        }
     }
 
     void changePuzzleTile(float x, float y) {
@@ -44,11 +63,7 @@ public class MapScreen {
         // go through the door and change where we are
     }
 
-    public String getTileType(float x, float y) {
-        // find the type of tile 
-        // please convert integers to stings when asking the player aanything
-        return "";
-    }
+    
         
     
     
