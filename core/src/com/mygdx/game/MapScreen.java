@@ -12,7 +12,7 @@ public class MapScreen {
     //blank 2d screen array
     private int[][] tiles;
     
-    //initilizer for the screen
+    //initializer for the screen
     public void Screen(int width, int height){
         //create the empty array with the correct size
         tiles = new int[width][height];

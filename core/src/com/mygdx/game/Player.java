@@ -26,11 +26,6 @@ public class Player {
     // player movement variables
     private float dx;
     private float dy;
-    // facing left or not
-    private boolean faceLeft;
-    private boolean faceRight;
-    private boolean faceUp;
-    private boolean faceDown;
 
     // the amount of time an animation has been running
     private float elapsed;
@@ -55,17 +50,20 @@ public class Player {
     private Rectangle bounds;
     
     private Texture player;
+    //Right = 2, Left = 1, Up = 2, Down = 1, no direction = 0
     private int directionX;
     private int directionY;
+    //???
     private int distanceTraveledX;
     private int distanceTraveledY;
+    //Instance variables for which tile the player is on
     private int worldRow;
     private int worldColumn;
     private MapScreen world;
 
 
     // constructor - we need to know where the player starts
-    public Player(float x, float y, int row, int col) {
+    public Player(float x, float y, int row, int col, int DirX, int DirY) {
         // sets the income position
         this.x = x;
         this.y = y;
@@ -90,10 +88,10 @@ public class Player {
         // create a run animation by finding every picture named run
         // the atlas has an index from each picture to order them correctly
         // this was done by naming the pictures in a certain way (run_1, run_2, etc.)
-        runR = new Animation(1f / 10f, atlas.findRegions("run"));
+        runR = new Animation(1f / 10f, atlas.findRegions("runR"));
 
         // load in the pictures from the atlas again, but we will flip them this time
-        Array<TextureAtlas.AtlasRegion> runLFrames = atlas.findRegions("run");
+        Array<TextureAtlas.AtlasRegion> runLFrames = atlas.findRegions("runL");
         for (int i = 0; i < runLFrames.size; i++) {
             // this is how we flip each image
             runLFrames.get(i).flip(true, false);
@@ -101,15 +99,21 @@ public class Player {
         // create the left animation
         runL = new Animation(1f / 10f, runLFrames);
 
-        // start off by facing right
-        this.faceLeft = false;
+        //Theses variables are created just in case something calls for the
+        //players direction before the player moves, might be unnecessary
+        this.directionX = DirX;
+        this.directionY = DirY;
         // my collision rectangle is at the x,y value passed in
         // it has the width and height of the standing picture
         this.bounds = new Rectangle(x, y, standR.getRegionWidth(), standR.getRegionHeight());
+        //Enter in the starting tile
         this.worldRow = row;
         this.worldColumn = col;
+        //???, What is this used for, or is it unfinished
         this.distanceTraveledX = 0;
         this.distanceTraveledY = 0;
+
+        
     }
     
     public float getX(){
@@ -126,13 +130,15 @@ public class Player {
         if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
             this.dx = 3;
             this.directionX = 2;
-            if (!Gdx.input.isKeyPressed(Input.Keys.UP) || !Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
+            if (!Gdx.input.isKeyPressed(Input.Keys.UP) 
+                    || !Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
                 this.directionY = 0;
             }
         } else if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
             this.dx = -3;
             this.directionX = 1;
-            if (!Gdx.input.isKeyPressed(Input.Keys.UP) || !Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
+            if (!Gdx.input.isKeyPressed(Input.Keys.UP) 
+                    || !Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
                 this.directionY = 0;
             }
         } else {
@@ -141,13 +147,15 @@ public class Player {
         if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
             this.dy = -3;
             this.directionY = 2;
-            if (!Gdx.input.isKeyPressed(Input.Keys.RIGHT) || !Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
+            if (!Gdx.input.isKeyPressed(Input.Keys.RIGHT) 
+                    || !Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
                 this.directionX = 0;
             }
         } else if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
             this.dy = 3;
             this.directionY = 1;
-            if (!Gdx.input.isKeyPressed(Input.Keys.RIGHT) || !Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
+            if (!Gdx.input.isKeyPressed(Input.Keys.RIGHT) 
+                    || !Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
                 this.directionX = 0;
             }
         } else {
@@ -206,13 +214,13 @@ public class Player {
         if (this.dx == 0){
             //Determine which direction the player is standing
             //If the player is facing left
-            if(faceLeft){
+            if(directionX == 1){
                 batch.draw(standL, x, y);
             //If the player is facing Right
-            }else if(faceRight){
+            }else if(directionX == 2){
                 batch.draw(standR, x, y);
             //If the player is facing up
-            }else if(faceUp){
+            }else if(directionY == 2){
                 batch.draw(standU, x, y);
             //If the player is facing down
             }else{
