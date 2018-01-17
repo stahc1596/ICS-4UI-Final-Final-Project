@@ -27,9 +27,9 @@ public class MapScreen {
     //setter for the tile
     public void setTile(int row, int col, int tileType){
         //set this integer at this position to be the desired integer
-        //System.out.println("Row " + row);
-        //System.out.println("Col " + col);
-        tiles[row][col] = tileType;
+        System.out.println("Row " + row);
+        System.out.println("Col " + col);
+        tiles[col][row] = tileType;
     }
     
     //getter for the tile
