@@ -40,13 +40,11 @@ public class MapScreen {
     
     //getter for the width of a mapscreen
     public int getWidth(){
-        //System.out.println("WIDTH: " + width);
         return width;
     }
     
     //getters for the height of a mapscreen
     public int getHeight(){
-       // System.out.println("height: " + height);
         return height;
     }
     
