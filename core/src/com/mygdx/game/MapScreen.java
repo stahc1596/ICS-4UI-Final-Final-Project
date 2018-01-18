@@ -33,10 +33,10 @@ public class MapScreen {
     }
     
     //getter for the tile
-    public int getTile(){
+    public int getTile(int row, int col){
         //access the integer(int row, int col){
         //access the inte at this position
-        return tiles[1][1];
+        return tiles[row][col];
         }
     
     void changePuzzleTile(float x, float y) {
