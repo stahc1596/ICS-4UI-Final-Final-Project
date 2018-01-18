@@ -150,15 +150,26 @@ public class Player {
             }
         }
         */
-        if(this.x == (this.world.getWidth)*1000){
-            this.worldColumn++;
+        // tel, the screen to mve to the next one and update the players position
+        if(this.x == (this.world.getWidth())*1000){
+            this.worldRow++;
             // bring the player to the other edge of the screen
             this.x = 100;
         }
         if(this.x == 0){
+            this.worldRow--;
+            // bring the player to the other edge of the screen
+            this.x = (this.world.getWidth())*1000-100;
+        }
+        if(this.y == (this.world.getHeight())*1000){
             this.worldColumn++;
             // bring the player to the other edge of the screen
-            this.x = (this.world.getWidth)*1000-100;
+            this.x = 100;
+        }
+        if(this.y == 0){
+            this.worldColumn--;
+            // bring the player to the other edge of the screen
+            this.x = (this.world.getHeight())*1000-100;
         }
         this.x = this.x + this.dx;
         this.y = this.y + this.dy;

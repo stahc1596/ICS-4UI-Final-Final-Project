@@ -38,8 +38,7 @@ public class MapScreen {
         //access the inte at this position
         return tiles[1][1];
         }
-    }
-
+    
     void changePuzzleTile(float x, float y) {
         // take where the player is
         // have it interact with the puzzle how it is needed to
