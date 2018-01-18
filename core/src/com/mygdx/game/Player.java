@@ -140,7 +140,7 @@ public class Player {
         } else {
             this.dy = 0;
         }/**
-         *Replace getTileType with something else
+         *waiting for the puzzle to be implemented
         if (Gdx.input.isKeyPressed(Input.Keys.ENTER)) {
             String test = this.world.getTile(this.x,this.y);
             if (test.equals("Puzzle")) {
@@ -150,6 +150,9 @@ public class Player {
             }
         }
         */
+        if(this.x ==1){
+            
+        }
         this.x = this.x + this.dx;
         this.y = this.y + this.dy;
     }
@@ -205,6 +208,7 @@ public class Player {
             }else{
                 batch.draw(standD, x, y);
             }
+            
         //If the player is moving, one of the four animations play, even if
         //they're moving diagonally
         //If the player is moving to the right
