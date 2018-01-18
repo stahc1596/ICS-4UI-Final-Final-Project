@@ -49,14 +49,10 @@ public class MapScreen {
         //take where player is and fing the corresponding door
         // go through the door and change where we are
     }
-
-    
-        
-    
     //getter for the width of a mapscreen
     public int getWidth(){
         //System.out.println("WIDTH: " + width);
-        return width;
+        return this.width;
     }
     
     //getters for the height of a mapscreen

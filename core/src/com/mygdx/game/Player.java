@@ -150,8 +150,15 @@ public class Player {
             }
         }
         */
-        if(this.x ==1){
-            
+        if(this.x == (this.world.getWidth)*1000){
+            this.worldColumn++;
+            // bring the player to the other edge of the screen
+            this.x = 100;
+        }
+        if(this.x == 0){
+            this.worldColumn++;
+            // bring the player to the other edge of the screen
+            this.x = (this.world.getWidth)*1000-100;
         }
         this.x = this.x + this.dx;
         this.y = this.y + this.dy;
