@@ -25,16 +25,16 @@ public class MainGame implements Screen{
     //create a puzzle game to display/ switch screens
     private PuzzleGame gameManager;
     // our game needs a hero
-    private Player player;
+    //private Player player;
     //create a new map to store the screens
-    static Map map = new Map();
+    private Map map;
     //create a variables for the dimentions of the map (dimentions in terms of # of screens)
-    static int mapHeight;
     static int mapWidth;
+    static int mapHeight;
     //create variables for the dimentions of the screen
-    static int ScreenTileHeight;
     static int ScreenTileWidth;
-
+    static int ScreenTileHeight;
+    
     // sprite batch
     private SpriteBatch batch;
     // camera and viewport
@@ -58,12 +58,11 @@ public class MainGame implements Screen{
         this.gameManager = puzzleGame;
         //create a blank file
         FileReader file = null;
+        
         //try to find the info file
         try {
-            //create a url for the location of the info file
-            URL url = MainGame.class.getResource("src//com.mygdxGame.game//info.txt");
             // creating the file reader
-            file = new FileReader("src//com.mygdxGame.game//info.txt");
+            file = new FileReader("Initilization.txt");
         } catch (Exception e) {
             //handle any errors
             e.printStackTrace();
@@ -71,39 +70,46 @@ public class MainGame implements Screen{
             System.exit(0);
         }
         //use a Scanner with the file
-        Scanner in = new Scanner(file);
+        Scanner scanner = new Scanner(file);
         //take in the variables for width and height of the map
-        mapHeight = Integer.parseInt(in.next());
-        mapWidth = Integer.parseInt(in.next());
+        mapWidth = Integer.parseInt(scanner.nextLine());
+        mapHeight = Integer.parseInt(scanner.nextLine());
+        //create a map of these dimentions
+        map = new Map(mapWidth, mapHeight);
         //take in the variables for width and height of screens
-        ScreenTileHeight = Integer.parseInt(in.next());
-        ScreenTileWidth = Integer.parseInt(in.next());
+        ScreenTileWidth = Integer.parseInt(scanner.nextLine());
+        ScreenTileHeight = Integer.parseInt(scanner.nextLine());
         //take in the starting position (screen wise) of the player
-        currentScreenX = Integer.parseInt(in.next());
-        currentScreenY = Integer.parseInt(in.next());
+        currentScreenX = Integer.parseInt(scanner.nextLine());
+        currentScreenY = Integer.parseInt(scanner.nextLine());
         //take in the position of the player (XY position wise on the screen)
-        startX = Integer.parseInt(in.next());
-        startY = Integer.parseInt(in.next());
+        startX = Integer.parseInt(scanner.nextLine());
+        startY = Integer.parseInt(scanner.nextLine());
         //create a player at this current position on the screen
         player = new Player(startX, startY, startX, startY, 0, 1);
         //this is counting the columns of screens in the map[][] 
-        for (int mapRow = 0; mapRow < mapWidth; mapRow++) {
+        for (int mapRow = 0; mapRow <= mapHeight - 1; mapRow++) {
+            //System.out.println("map row" + mapRow);
             //this is counting the number of column spots for the screens in the map[][]
-            for (int mapCol = 0; mapCol < mapHeight; mapCol++) {
+            for (int mapCol = 0; mapCol <= mapWidth - 1; mapCol++) {
+                //System.out.println("mapCol" + mapCol);
                 //we are now at a new screen, so initilize it
-                MapScreen screen = new MapScreen();
+                MapScreen screen = new MapScreen(ScreenTileWidth, ScreenTileHeight);
                 //this is counting the number of rows in the map[][]for this row for this scecific screen
-                for (int screenRow = 0; screenRow < ScreenTileHeight; screenRow++) {
+                for (int screenRow = 0; screenRow <= ScreenTileHeight - 1; screenRow++) {
+                    //scan in this whole line as a string
+                    String Line = scanner.nextLine();
                     //this is counting the number of columns in the map[][]for this row for this specific screen
-                    for (int screenCol = 0; screenCol < ScreenTileWidth; screenCol++) {
-                        //take this number and put it into its respective tile designation inside of its respective screen designation inside of the map
-                        screen.setTile(screenRow, screenCol, Integer.parseInt(in.next()));
+                    for (int screenCol = 0; screenCol <= ScreenTileWidth - 1; screenCol++) {
+                        //set the position in the [][] equal to screenCol's #
+                        char ex = Line.charAt(screenCol);
+                        screen.setTile(screenRow, screenCol, Integer.parseInt("" + ex));
                     }
                 }
                 //now put this screen into the map[][]
                 map.setScreen(mapRow, mapCol, screen);
                 //we have now passed a screen worth of tiles, so move past the blank space ()separating the screens
-                in.next();
+                scanner.nextLine();
             }
         }
         // initialize the spritebatch
@@ -146,9 +152,9 @@ public class MainGame implements Screen{
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 	
-        // ask the world to render
-        // notice this is not in the SpriteBatch
-        // This is because it uses its own ShapeRenderer
+        
+        
+        // render the map at our current screen
         map.render(camera, currentScreenX, currentScreenY);
         
         //WAITING ON RYAN
@@ -176,7 +182,7 @@ public class MainGame implements Screen{
     // used when the window is resized.... we haven't use it here
     @Override
     public void resize(int width, int height) {
-        
+        this.view.update(width, height);
     }
 
     // if the game could pause, what do you need to happen?
@@ -200,16 +206,6 @@ public class MainGame implements Screen{
     // get rid of heavy objects...
     @Override
     public void dispose() {
-        
-    }
-    
-    //getter for the screen tile height (helpful for the display)
-    public void getScreenTileHeight(){
-        //return the size of the 
-    }
-    
-    //getter for the screen tile height (helpful for the display)
-    public void getScreenTileWidth(){
         
     }
 }
