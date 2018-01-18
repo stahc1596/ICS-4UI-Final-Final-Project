@@ -88,9 +88,11 @@ public class MainGame implements Screen{
         //create a player at this current position on the screen
         player = new Player(startX, startY,1,1);
         //this is counting the columns of screens in the map[][] 
-        for (int mapRow = 0; mapRow <= mapWidth - 1; mapRow++) {
+        for (int mapRow = 0; mapRow <= mapHeight - 1; mapRow++) {
+            //System.out.println("map row" + mapRow);
             //this is counting the number of column spots for the screens in the map[][]
-            for (int mapCol = 0; mapCol <= mapHeight - 1; mapCol++) {
+            for (int mapCol = 0; mapCol <= mapWidth - 1; mapCol++) {
+                //System.out.println("mapCol" + mapCol);
                 //we are now at a new screen, so initilize it
                 MapScreen screen = new MapScreen(ScreenTileWidth, ScreenTileHeight);
                 //this is counting the number of rows in the map[][]for this row for this scecific screen
@@ -100,7 +102,6 @@ public class MainGame implements Screen{
                     //this is counting the number of columns in the map[][]for this row for this specific screen
                     for (int screenCol = 0; screenCol <= ScreenTileWidth - 1; screenCol++) {
                         //set the position in the [][] equal to screenCol's #
-                        System.out.println(screenCol);
                         char ex = Line.charAt(screenCol);
                         screen.setTile(screenRow, screenCol, Integer.parseInt("" + ex));
                     }
@@ -181,7 +182,7 @@ public class MainGame implements Screen{
     // used when the window is resized.... we haven't use it here
     @Override
     public void resize(int width, int height) {
-        
+        this.view.update(width, height);
     }
 
     // if the game could pause, what do you need to happen?

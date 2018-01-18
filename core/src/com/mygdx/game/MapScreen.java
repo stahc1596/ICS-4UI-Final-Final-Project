@@ -11,17 +11,25 @@ package com.mygdx.game;
 public class MapScreen {
     //blank 2d screen array
     private int[][] tiles;
+    //create the width and height variables
+    private int width;
+    private int height;
     
     //initilizer for the screen
     public MapScreen(int width, int height){
         //create the empty array with the correct size
-        tiles = new int[height][width];
+        tiles = new int[width][height];
+        //store the width and height
+        this.width = width;
+        this.height = height;
     }
     
     //setter for the tile
     public void setTile(int row, int col, int tileType){
         //set this integer at this position to be the desired integer
-        tiles[row][col] = tileType;
+        System.out.println("Row " + row);
+        System.out.println("Col " + col);
+        tiles[col][row] = tileType;
     }
     
     //getter for the tile
@@ -44,6 +52,18 @@ public class MapScreen {
 
     
         
+    
+    //getter for the width of a mapscreen
+    public int getWidth(){
+        //System.out.println("WIDTH: " + width);
+        return width;
+    }
+    
+    //getters for the height of a mapscreen
+    public int getHeight(){
+       // System.out.println("height: " + height);
+        return height;
+    }
     
     
 }
