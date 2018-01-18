@@ -77,27 +77,19 @@ public class Player {
 
         // load in the texture atlast to start finding pictures
         this.atlas = new TextureAtlas("packed/player.atlas");
-
         // finding the standing picture and load it in
+        this.standR = atlas.findRegion("standR");
         this.standD = atlas.findRegion("standD");
-        // we create a new texture from the standing picture
-        // this creates a duplicate picture so we can flip it for the other direction
-        this.standL = new TextureRegion(standL);
-        this.standL.flip(true, false);
+        this.standU = atlas.findRegion("standU");
+        this.standL = atlas.findRegion("standL");
 
         // create a run animation by finding every picture named run
         // the atlas has an index from each picture to order them correctly
         // this was done by naming the pictures in a certain way (run_1, run_2, etc.)
         runR = new Animation(1f / 10f, atlas.findRegions("runR"));
-
-        // load in the pictures from the atlas again, but we will flip them this time
-        Array<TextureAtlas.AtlasRegion> runLFrames = atlas.findRegions("runL");
-        for (int i = 0; i < runLFrames.size; i++) {
-            // this is how we flip each image
-            runLFrames.get(i).flip(true, false);
-        }
-        // create the left animation
-        runL = new Animation(1f / 10f, runLFrames);
+        runL = new Animation(1f / 10f, atlas.findRegions("runL"));
+        runU = new Animation(1f / 10f, atlas.findRegions("runU"));
+        runD = new Animation(1f / 10f, atlas.findRegions("runD"));
 
         //Theses variables are created just in case something calls for the
         //players direction before the player moves, might be unnecessary
