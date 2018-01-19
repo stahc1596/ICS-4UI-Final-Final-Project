@@ -19,7 +19,6 @@ import com.badlogic.gdx.utils.Array;
  * @author slatz8075
  */
 public class Player {
-    //THIS IS FOR RYAN
     // player location variables
     private float x;
     private float y;
