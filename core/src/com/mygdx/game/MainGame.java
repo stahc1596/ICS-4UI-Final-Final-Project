@@ -25,7 +25,7 @@ public class MainGame implements Screen{
     //create a puzzle game to display/ switch screens
     private PuzzleGame gameManager;
     // our game needs a hero
-    //private Player player;
+    private Player player;
     //create a new map to store the screens
     private Map map;
     //create a variables for the dimentions of the map (dimentions in terms of # of screens)
@@ -34,7 +34,6 @@ public class MainGame implements Screen{
     //create variables for the dimentions of the screen
     static int ScreenTileWidth;
     static int ScreenTileHeight;
-    
     // sprite batch
     private SpriteBatch batch;
     // camera and viewport
@@ -86,7 +85,7 @@ public class MainGame implements Screen{
         startX = Integer.parseInt(scanner.nextLine());
         startY = Integer.parseInt(scanner.nextLine());
         //create a player at this current position on the screen
-        player = new Player(startX, startY, startX, startY, 0, 1);
+        Player player = new Player(startX, startY, currentScreenX, currentScreenY, 0, 1);
         //this is counting the columns of screens in the map[][] 
         for (int mapRow = mapHeight - 1; mapRow >= 0; mapRow--) {
             //System.out.println("map row" + mapRow);
@@ -135,8 +134,7 @@ public class MainGame implements Screen{
     // the main game loop for this screen
     @Override
     public void render(float deltaTime) {
-        player.update(deltaTime);
-        /*
+
         // update the player
         player.update(deltaTime);
         
@@ -145,35 +143,23 @@ public class MainGame implements Screen{
         for(Rectangle block: world.getBlocks()){
             player.fixCollision(block);
         }
-        */
         
-       
         // clears the screen in a black colour
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-	
-        
-        
+
         // render the map at our current screen
         map.render(camera, currentScreenX, currentScreenY);
         
-        //WAITING ON RYAN
-        /*
         if(player.getX() > 200){
             camera.position.x = player.getX();
         }
-        */
+
         camera.update();
         batch.setProjectionMatrix(camera.combined);
         // ask the SpriteBatch to start taking notes of what to draw
         batch.begin();
-        
-        //WAITING OR RYAN
-        /*
 	// ask the player to draw themself
-        player.render(batch);
-        */
-        //Ask the player to draw themself
         player.render(batch);
         // tell the SpriteBatch we are good to draw everything now
 	batch.end();
