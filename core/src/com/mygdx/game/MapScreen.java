@@ -34,8 +34,21 @@ public class MapScreen {
     
     //getter for the tile
     public int getTile(int row, int col){
-        //access the integer at this position
+
+        //access the integer(int row, int col){
+        //access the inte at this position
         return tiles[row][col];
+        }
+    
+    void changePuzzleTile(float x, float y) {
+        // take where the player is
+        // have it interact with the puzzle how it is needed to
+    }
+
+    void PassThroughDoor(int worldRow, int worldColumn, float x, float y) {
+        //take where player is and fing the corresponding door
+        // go through the door and change where we are
+
     }
     
     //getter for the width of a mapscreen
