@@ -1,0 +1,96 @@
+
+Player.png
+size: 1024,1024
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+RunD1
+  rotate: false
+  xy: 696, 461
+  size: 323, 449
+  orig: 323, 449
+  offset: 0, 0
+  index: -1
+RunD2
+  rotate: false
+  xy: 368, 458
+  size: 326, 452
+  orig: 326, 452
+  offset: 0, 0
+  index: -1
+RunU1
+  rotate: false
+  xy: 355, 5
+  size: 329, 449
+  orig: 329, 449
+  offset: 0, 0
+  index: -1
+RunU2
+  rotate: false
+  xy: 686, 7
+  size: 326, 449
+  orig: 326, 449
+  offset: 0, 0
+  index: -1
+StandD
+  rotate: false
+  xy: 2, 456
+  size: 364, 454
+  orig: 364, 454
+  offset: 0, 0
+  index: -1
+StandU
+  rotate: false
+  xy: 2, 2
+  size: 351, 452
+  orig: 351, 452
+  offset: 0, 0
+  index: -1
+
+Player2.png
+size: 1024,1024
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+RunL1
+  rotate: false
+  xy: 330, 427
+  size: 300, 427
+  orig: 300, 427
+  offset: 0, 0
+  index: -1
+RunL2
+  rotate: false
+  xy: 632, 427
+  size: 300, 427
+  orig: 300, 427
+  offset: 0, 0
+  index: -1
+RunR1
+  rotate: false
+  xy: 2, 5
+  size: 326, 420
+  orig: 326, 420
+  offset: 0, 0
+  index: -1
+RunR2
+  rotate: false
+  xy: 330, 2
+  size: 300, 423
+  orig: 300, 423
+  offset: 0, 0
+  index: -1
+StandL
+  rotate: false
+  xy: 2, 427
+  size: 326, 427
+  orig: 326, 427
+  offset: 0, 0
+  index: -1
+StandR
+  rotate: false
+  xy: 632, 2
+  size: 296, 423
+  orig: 296, 423
+  offset: 0, 0
+  index: -1
