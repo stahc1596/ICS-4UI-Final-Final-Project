@@ -19,23 +19,28 @@ import com.badlogic.gdx.utils.Array;
  * @author slatz8075
  */
 public class Player {
+    //THIS IS FOR RYAN
+    // player location variables
     private float x;
     private float y;
+    // player movement variables
     private float dx;
     private float dy;
+
+    // the amount of time an animation has been running
     private float elapsed;
-    private Texture player;
-    private int directionX;
-    private int directionY;
-    private int distanceTraveledX;
-    private int distanceTraveledY;
-    private int worldRow;
-    private int worldColumn;
-    private MapScreen world;
+
+    // animation variables for moving
+    private Animation<TextureRegion> runR;
+    private Animation<TextureRegion> runL;
+    private Animation<TextureRegion> runU;
+    private Animation<TextureRegion> runD;
     
     // pictures when standing still
-    private TextureRegion stand;
+    private TextureRegion standR;
     private TextureRegion standL;
+    private TextureRegion standU;
+    private TextureRegion standD;
 
     // texture atlas that will help load in the images from the big image
     // this was created from running the texture packer (in Desktop Launcher)
@@ -43,16 +48,22 @@ public class Player {
 
     // the collision rectangle to help us fix collisions
     private Rectangle bounds;
+    
+    private Texture player;
+    //Right = 2, Left = 1, Up = 2, Down = 1, no direction = 0
+    private int directionX;
+    private int directionY;
+    //???
+    private int distanceTraveledX;
+    private int distanceTraveledY;
+    //Instance variables for which tile the player is on
+    private int worldRow;
+    private int worldColumn;
+    private MapScreen world;
 
-   
-    /**
-     *
-     * @param x the players x position on the screen
-     * @param y the players y position on the screen
-     * @param row the row of the map where the player is
-     * @param col the column of the map where the player is
-     */
-    public Player(float x, float y, int row, int col) {
+
+    // constructor - we need to know where the player starts
+    public Player(float x, float y, int row, int col, int DirX, int DirY) {
         // sets the income position
         this.x = x;
         this.y = y;
@@ -66,37 +77,35 @@ public class Player {
 
         // load in the texture atlast to start finding pictures
         this.atlas = new TextureAtlas("packed/player.atlas");
-
         // finding the standing picture and load it in
+        this.standR = atlas.findRegion("standR");
         this.standD = atlas.findRegion("standD");
-        // we create a new texture from the standing picture
-        // this creates a duplicate picture so we can flip it for the other direction
-        this.standL = new TextureRegion(standL);
-        this.standL.flip(true, false);
+        this.standU = atlas.findRegion("standU");
+        this.standL = atlas.findRegion("standL");
 
         // create a run animation by finding every picture named run
         // the atlas has an index from each picture to order them correctly
         // this was done by naming the pictures in a certain way (run_1, run_2, etc.)
-        runR = new Animation(1f / 10f, atlas.findRegions("run"));
+        runR = new Animation(1f / 10f, atlas.findRegions("runR"));
+        runL = new Animation(1f / 10f, atlas.findRegions("runL"));
+        runU = new Animation(1f / 10f, atlas.findRegions("runU"));
+        runD = new Animation(1f / 10f, atlas.findRegions("runD"));
 
-        // load in the pictures from the atlas again, but we will flip them this time
-        Array<TextureAtlas.AtlasRegion> runLFrames = atlas.findRegions("run");
-        for (int i = 0; i < runLFrames.size; i++) {
-            // this is how we flip each image
-            runLFrames.get(i).flip(true, false);
-        }
-        // create the left animation
-        runL = new Animation(1f / 10f, runLFrames);
-
-        // start off by facing right
-        this.faceLeft = false;
+        //Theses variables are created just in case something calls for the
+        //players direction before the player moves, might be unnecessary
+        this.directionX = DirX;
+        this.directionY = DirY;
         // my collision rectangle is at the x,y value passed in
         // it has the width and height of the standing picture
         this.bounds = new Rectangle(x, y, standR.getRegionWidth(), standR.getRegionHeight());
+        //Enter in the starting tile
         this.worldRow = row;
         this.worldColumn = col;
+        //???, What is this used for, or is it unfinished
         this.distanceTraveledX = 0;
         this.distanceTraveledY = 0;
+
+        
     }
     
     public float getX(){
@@ -113,13 +122,15 @@ public class Player {
         if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
             this.dx = 3;
             this.directionX = 2;
-            if (!Gdx.input.isKeyPressed(Input.Keys.UP) || !Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
+            if (!Gdx.input.isKeyPressed(Input.Keys.UP) 
+                    || !Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
                 this.directionY = 0;
             }
         } else if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
             this.dx = -3;
             this.directionX = 1;
-            if (!Gdx.input.isKeyPressed(Input.Keys.UP) || !Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
+            if (!Gdx.input.isKeyPressed(Input.Keys.UP) 
+                    || !Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
                 this.directionY = 0;
             }
         } else {
@@ -128,28 +139,31 @@ public class Player {
         if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
             this.dy = -3;
             this.directionY = 2;
-            if (!Gdx.input.isKeyPressed(Input.Keys.RIGHT) || !Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
+            if (!Gdx.input.isKeyPressed(Input.Keys.RIGHT) 
+                    || !Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
                 this.directionX = 0;
             }
         } else if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
             this.dy = 3;
             this.directionY = 1;
-            if (!Gdx.input.isKeyPressed(Input.Keys.RIGHT) || !Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
+            if (!Gdx.input.isKeyPressed(Input.Keys.RIGHT) 
+                    || !Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
                 this.directionX = 0;
             }
         } else {
             this.dy = 0;
         }/**
-         *waiting for the puzzle to be implemented
+         *Replace getTileType with something else
         if (Gdx.input.isKeyPressed(Input.Keys.ENTER)) {
-            String test = this.world.getTile(this.x,this.y);
+            String test = this.world.getTileType();
             if (test.equals("Puzzle")) {
-                puzzleInteract();
+                puzzleInteract(this.world.getTile);
             } else if (test.equals("Door")) {
-                doorInteract();
+                doorInteract(this.world.getTile);
             }
         }
         */
+
         // tel, the screen to mve to the next one and update the players position
         if(this.x == (this.world.getWidth())*1000){
             this.worldRow++;
@@ -171,6 +185,7 @@ public class Player {
             // bring the player to the other edge of the screen
             this.x = (this.world.getHeight())*1000-100;
         }
+
         this.x = this.x + this.dx;
         this.y = this.y + this.dy;
     }
@@ -214,19 +229,18 @@ public class Player {
         if (this.dx == 0){
             //Determine which direction the player is standing
             //If the player is facing left
-            if(faceLeft){
+            if(directionX == 1){
                 batch.draw(standL, x, y);
             //If the player is facing Right
-            }else if(faceRight){
+            }else if(directionX == 2){
                 batch.draw(standR, x, y);
             //If the player is facing up
-            }else if(faceUp){
+            }else if(directionY == 2){
                 batch.draw(standU, x, y);
             //If the player is facing down
             }else{
                 batch.draw(standD, x, y);
             }
-            
         //If the player is moving, one of the four animations play, even if
         //they're moving diagonally
         //If the player is moving to the right
@@ -259,38 +273,23 @@ public class Player {
     public void setScreen(MapScreen places) {
         this.world = places;
     }
-/**
- * getting the players x position
- * @return the players x position
- */
+
     public float getPlayerX() {
         return this.x;
     }
-/**
- * getting the players y position
- * @return the players y position
- */
+
     public float getPlayerY() {
         return this.y;
     }
-/**
- * 
- * @return 
- */
+
     public int getWorldCol() {
         return this.worldColumn;
     }
-/**
- * 
- * @return 
- */
+
     public int getWorldRow() {
         return this.worldRow;
     }
-/**
- * 
- * @return the direction the player is facing 
- */
+
     public String getDiretion() {
         if (this.directionX == 2 && this.directionY == 0) {
             return "right";
@@ -312,20 +311,20 @@ public class Player {
             return "error no direction found";
         }
     }
-/**
- * tells the wold the player wants to interact with the world 
- */
-    public void puzzleInteract() {
+
+    /**
+     * This isn't coded properly, I believe it's coded to believe a tile is the
+     * square the player is standing on rather than the room he's in
+    public void puzzleInteract(String puzzle) {
+
         //interact
         world.changePuzzleTile(this.x, this.y);
     }
-/**
- * has the player tell the world he wants to go through a door
- */
-    public void doorInteract() {
+
+    public void doorInteract(Tile Door) {
         //interact
-        world.PassThroughDoor(this.worldRow, this.worldColumn, this.x, this.y);
+        world.changeMap(this.worldRow, this.worldColumn, this.x, this.y);
     }
-   
+    */
 }
 

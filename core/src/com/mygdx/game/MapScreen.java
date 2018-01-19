@@ -34,6 +34,7 @@ public class MapScreen {
     
     //getter for the tile
     public int getTile(int row, int col){
+
         //access the integer(int row, int col){
         //access the inte at this position
         return tiles[row][col];
@@ -47,11 +48,13 @@ public class MapScreen {
     void PassThroughDoor(int worldRow, int worldColumn, float x, float y) {
         //take where player is and fing the corresponding door
         // go through the door and change where we are
+
     }
+    
     //getter for the width of a mapscreen
     public int getWidth(){
         //System.out.println("WIDTH: " + width);
-        return this.width;
+        return width;
     }
     
     //getters for the height of a mapscreen
