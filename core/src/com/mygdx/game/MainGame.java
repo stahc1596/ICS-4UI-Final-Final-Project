@@ -139,6 +139,7 @@ public class MainGame implements Screen{
 
         // update the player
         player.update(deltaTime);
+
         /**
         //THIS NEEDS MODIFICATION
         // check for collisions and fix them
@@ -150,6 +151,7 @@ public class MainGame implements Screen{
        
 
         
+
 
         // clears the screen in a black colour
         Gdx.gl.glClearColor(0, 0, 0, 1);
