@@ -231,7 +231,7 @@ public class Player {
 
     public void render(SpriteBatch batch){
         //Check if the player is standing
-        if (this.dx == 0){
+        if (this.dx == 0 && this.dy == 0){
             //Determine which direction the player is standing
             //If the player is facing left
             if(directionX == 1){
@@ -255,11 +255,11 @@ public class Player {
         }else if(this.dx < 0){
             batch.draw(runL.getKeyFrame(elapsed, true), x, y, 1000, 1000);
         //If the player is moving upwards
-        }else if(this.dy < 0){
+        }else if(this.dy > 0){
             batch.draw(runU.getKeyFrame(elapsed, true), x, y, 1000, 1000);
         //If the player is moving downwards
-        }else if(this.dy > 0){
-            batch.draw(runD.getKeyFrame(elapsed, true), x, y, 10000, 10000);
+        }else if(this.dy < 0){
+            batch.draw(runD.getKeyFrame(elapsed, true), x, y, 1000, 1000);
         }
     }
     
