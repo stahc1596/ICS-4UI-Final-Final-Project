@@ -235,31 +235,31 @@ public class Player {
             //Determine which direction the player is standing
             //If the player is facing left
             if(directionX == 1){
-                batch.draw(standL, x, y);
+                batch.draw(standL, x, y, 1000, 1000);
             //If the player is facing Right
             }else if(directionX == 2){
-                batch.draw(standR, x, y);
+                batch.draw(standR, x, y, 1000, 1000);
             //If the player is facing up
             }else if(directionY == 2){
-                batch.draw(standU, x, y);
+                batch.draw(standU, x, y, 1000, 1000);
             //If the player is facing down
             }else{
-                batch.draw(standD, x, y);
+                batch.draw(standD, x, y, 1000, 1000);
             }
         //If the player is moving, one of the four animations play, even if
         //they're moving diagonally
         //If the player is moving to the right
         }else if(this.dx > 0){
-            batch.draw(runR.getKeyFrame(elapsed, true), x, y);
+            batch.draw(runR.getKeyFrame(elapsed, true), x, y, 1000, 1000);
         //If the player is moving to the left
         }else if(this.dx < 0){
-            batch.draw(runL.getKeyFrame(elapsed, true), x, y);
+            batch.draw(runL.getKeyFrame(elapsed, true), x, y, 1000, 1000);
         //If the player is moving upwards
         }else if(this.dy < 0){
-            batch.draw(runU.getKeyFrame(elapsed, true), x, y);
+            batch.draw(runU.getKeyFrame(elapsed, true), x, y, 1000, 1000);
         //If the player is moving downwards
         }else if(this.dy > 0){
-            batch.draw(runD.getKeyFrame(elapsed, true), x, y);
+            batch.draw(runD.getKeyFrame(elapsed, true), x, y, 10000, 10000);
         }
     }
     
