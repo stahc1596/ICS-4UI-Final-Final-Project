@@ -119,7 +119,7 @@ public class Player {
     public void update(float deltaTime) {
         // movement
         if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
-            this.dx = 20;
+            this.dx = 50;
             this.elapsed = this.elapsed + deltaTime;
             this.directionX = 2;
             if (!Gdx.input.isKeyPressed(Input.Keys.UP) 
@@ -127,7 +127,7 @@ public class Player {
                 this.directionY = 0;
             }
         } else if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
-            this.dx = -20;
+            this.dx = -50;
             this.elapsed = this.elapsed + deltaTime;
             this.directionX = 1;
             if (!Gdx.input.isKeyPressed(Input.Keys.UP) 
@@ -139,7 +139,7 @@ public class Player {
             this.elapsed = 1;
         }
         if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
-            this.dy = 20;
+            this.dy = 50;
             this.elapsed = this.elapsed + deltaTime;
             this.directionY = 2;
             if (!Gdx.input.isKeyPressed(Input.Keys.RIGHT) 
@@ -147,7 +147,7 @@ public class Player {
                 this.directionX = 0;
             }
         } else if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
-            this.dy = -20;
+            this.dy = -50;
             this.elapsed = this.elapsed + deltaTime;
             this.directionY = 1;
             if (!Gdx.input.isKeyPressed(Input.Keys.RIGHT) 
