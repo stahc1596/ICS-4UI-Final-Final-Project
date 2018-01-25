@@ -59,6 +59,7 @@ public class Player {
     private int worldRow;
     private int worldColumn;
     private MapScreen world;
+    private Map map;
 
 
     // constructor - we need to know where the player starts
@@ -159,6 +160,9 @@ public class Player {
             this.dy = 0;
         }else{
             this.elapsed = 0;
+        }
+        if(Gdx.input.isKeyPressed(Input.Keys.SPACE)){
+            interactY();
         }
         /**
          *Replace getTileType with something else
@@ -320,19 +324,12 @@ public class Player {
         }
     }
 
-    /**
-     * This isn't coded properly, I believe it's coded to believe a tile is the
-     * square the player is standing on rather than the room he's in
-    public void puzzleInteract(String puzzle) {
-
-        //interact
-        world.changePuzzleTile(this.x, this.y);
+    public void interactY(){
+        if(directionX == 2 && directionY == 0){
+            if(world.getTile(Math.round(this.x), Math.round(this.y + 1000)) == 2){
+                System.out.println("worked");
+            }
+        }
     }
-
-    public void doorInteract(Tile Door) {
-        //interact
-        world.changeMap(this.worldRow, this.worldColumn, this.x, this.y);
-    }
-    */
 }
 

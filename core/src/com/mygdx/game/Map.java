@@ -64,6 +64,9 @@ public class Map {
                     shapeRenderer.rect(ScreenColumn * 1000, ScreenRow * 1000, 1000, 1000);
                     //now generate the block texture
                     
+                }else if(CurrentScreen.getTile(ScreenColumn, ScreenRow) == 2){
+                    //Finish this and make it yellow
+                    //shapeRenderer.rect(ScreenColumn*1000, ScreenRow*1000, 1000, 1000, Color.GRAY, Color.GRAY, Color.GRAY, Color.GRAY);
                 }else if(CurrentScreen.getTile(ScreenColumn, ScreenRow) == 0){
                     //now we know it is not a block
                     //all we need to do is generate the texture
